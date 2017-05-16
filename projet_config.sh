@@ -101,6 +101,17 @@ read -n 1 config_alias
 
 if [ "$config_alias" == "Y" ] || [ "$config_alias" == "y" ]; then
     git config --global alias.auth 'shortlog -sne --all'
+    git config --global alias.a  'add'
+    git config --global alias.br 'branch'
+    git config --global alias.ci 'commit'
+    git config --global alias.cl 'clone'
+    git config --global alias.co 'checkout'
+    git config --global alias.cp 'cherry-pick'
+    git config --global alias.d  'diff'
+    git config --global alias.dc 'diff --cached'
+    git config --global alias.diff 'diff --word-diff'
+    git config --global alias.r  'reset'
+    git config --global alias.st 'status'
 fi
 
 
@@ -137,4 +148,68 @@ if [ "$config_nppp" == "Y" ] || [ "$config_nppp" == "y" ]; then
 fi
 
 
+echo -en "\nDo you config mergetools ? [N/y]"
+read -n 1 config_mergetool
 
+if [ "$config_mergetool" == "Y" ] || [ "$config_mergetool" == "y" ]; then
+    echo "1. Télécharger le fichier https://iutamiens.sharepoint.com/sites/UtilisationGit/_layouts/15/guestaccess.aspx?guestaccesstoken=XxfDxy99Tl3CFEOiMyJ%2fY8VvXT3%2fGTQx724cKptanEQ%3d&docid=2_039f9732621d74e8783e8f51476ab02b6&rev=1"
+    echo "2. Décompresser le fichier sur une clé USB."
+    echo "3. Indiquer ci-dessous le répertoire contenant le fichier décompressé : "
+    echo "    - Meld/Meld.exe"
+    echo "    - KDiff3/kdiff3.exe"
+    echo "    - Perforce/p4merge.exe"
+    
+    
+    read -re path_mt
+    path_mt=$(echo "/$path_mt" | sed -e 's/\\/\//g' -e 's/://')
+
+
+    git config --global --remove-section difftool > /dev/null 2>&1
+	git config --global --remove-section mergetool > /dev/null 2>&1
+	git config --global --remove-section difftool.meld > /dev/null 2>&1
+	git config --global --remove-section difftool.kdiff3 > /dev/null 2>&1
+	git config --global --remove-section difftool.p4merge > /dev/null 2>&1
+
+	git config --global merge.tool meld
+	git config --global diff.tool  meld
+
+
+	git config --global mergetool.prompt false
+	git config --global mergetool.keepBackup false
+	git config --global mergetool.keepTemporaries false
+
+	git config --global difftool.prompt false
+	git config --global difftool.keepBackup false
+	git config --global difftool.keepTemporaries false
+
+
+    path_meld="$path_mt/Meld/Meld.exe"
+    if [[ -e "$path_meld" ]]
+    then
+        echo "Meld : $path_meld"
+        git config --global mergetool.meld.path "$path_meld"
+	    git config --global difftool.meld.path "$path_meld"
+    else
+        echo "$path_meld : Not Found"
+    fi
+
+    path_p4merge="$path_mt/Perforce/p4merge.exe"
+    if [[ -e "$path_p4merge" ]]
+    then
+        echo "p4merge : $path_meld"
+        git config --global mergetool.p4merge.path "$path_p4merge"
+	    git config --global difftool.p4merge.path "$path_p4merge"
+    else
+        echo "$path_p4merge : Not Found"
+    fi
+
+    path_kdiff3="$path_mt/KDiff3/kdiff3.exe"
+    if [[ -e "$path_kdiff3" ]]
+    then
+        echo "kdiff3 : $path_kdiff3"
+        git config --global mergetool.kdiff3.path "$path_kdiff3"
+	    git config --global difftool.kdiff3.path "$path_kdiff3"
+    else
+        echo "$path_kdiff3 : Not Found"
+    fi
+fi
