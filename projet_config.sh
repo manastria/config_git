@@ -114,6 +114,12 @@ if [ "$config_alias" == "Y" ] || [ "$config_alias" == "y" ]; then
     git config --global alias.st 'status'
 fi
 
+echo -en "\nDo you want config pager ? [N/y]"
+read -n 1 config_pager
+
+if [ "$config_pager" == "Y" ] || [ "$config_pager" == "y" ]; then
+    git config --global --replace-all core.pager "\"$(which less)\" -FRXKS"
+fi
 
 echo -en "\nDo you want install hist ? [N/y]"
 read -n 1 config_hist
