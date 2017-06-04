@@ -7,6 +7,16 @@ DEBUG()
 	[ "$_DEBUG" == "on" ] &&  $@
 }
 
+# Colors
+declare -r ESC_SEQ="\x1b["
+declare -r COL_RESET=$ESC_SEQ"39;49;00m"
+declare -r COL_RED=$ESC_SEQ"31;01m"
+declare -r COL_GREEN=$ESC_SEQ"32;01m"
+declare -r COL_YELLOW=$ESC_SEQ"33;01m"
+declare -r COL_BLUE=$ESC_SEQ"34;01m"
+declare -r COL_MAGENTA=$ESC_SEQ"35;01m"
+declare -r COL_CYAN=$ESC_SEQ"36;01m" 
+
 # Retourne 0 si egale, 1 si sup, 2 si inf
 vercomp () {
     if [[ $1 == $2 ]]
