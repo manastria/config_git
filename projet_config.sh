@@ -7,6 +7,29 @@ DEBUG()
 	[ "$_DEBUG" == "on" ] &&  $@
 }
 
+# -C <path>
+# Run as if git was started in <path> instead of the current working directory.
+
+gitRepo="."
+
+# Check the passed params to avoid disapointment
+
+checkParams () {
+	# If we have params
+	if [[ "$#" -gt 0 ]]
+	then
+		# Check that the git repo exists
+		if  [[ ! -d "$1" ]]
+		then
+			echo "git repository not found: $1"
+			exit 1;
+		fi
+		gitRepo="$1"
+	fi
+}
+
+checkParams "$@";
+
 # Colors
 declare -r ESC_SEQ="\x1b["
 declare -r COL_RESET=$ESC_SEQ"39;49;00m"
