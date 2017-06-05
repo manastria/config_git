@@ -122,30 +122,31 @@ if [ "$1" == "-h" ] || [ "$1" == "-?" ] || [ "$1" == "--help" ]; then
     exit
 fi
 
-echo -e "\n${COL_BLUE}Local author${COL_RESET}"
-echo -e "${COL_BLUE}============${COL_RESET}"
+if [ "$inside_git_repo" ]; then
 
-echo "User : " $(git config user.name)
-echo "Mail : " $(git config user.email)
+    echo -e "\n${COL_BLUE}Local author${COL_RESET}"
+    echo -e "${COL_BLUE}============${COL_RESET}"
 
-echo -en "\nDo you want config author ? [N/y]"
-read -n 1 config_author
+    echo "User : " $(git config user.name)
+    echo "Mail : " $(git config user.email)
 
-if [ "$config_author" == "Y" ] || [ "$config_author" == "y" ]; then
-    echo -e "\nGit config settings"
-    echo -n "Name: "
-    read git_name
-    echo -ne "\nEmail: "
-    read git_email
+    echo -en "\nDo you want config author ? [N/y]"
+    read -n 1 config_author
 
-    #cp $PWD/.gitconfig $INSTALLDIR/.gitconfig
-    #sed -i "s/%%GITNAME%%/$git_name/" $INSTALLDIR/.gitconfig
-    #sed -i "s/%%GITEMAIL%%/$git_email/" $INSTALLDIR/.gitconfig
-	git config user.name "${git_name}"
-	git config user.email "${git_email}"
+    if [ "$config_author" == "Y" ] || [ "$config_author" == "y" ]; then
+        echo -e "\nGit config settings"
+        echo -n "Name: "
+        read git_name
+        echo -ne "\nEmail: "
+        read git_email
+
+        #cp $PWD/.gitconfig $INSTALLDIR/.gitconfig
+        #sed -i "s/%%GITNAME%%/$git_name/" $INSTALLDIR/.gitconfig
+        #sed -i "s/%%GITEMAIL%%/$git_email/" $INSTALLDIR/.gitconfig
+        git config user.name "${git_name}"
+        git config user.email "${git_email}"
+    fi
 fi
-
-
 
 echo -e "\n\n${COL_BLUE}Global author${COL_RESET}"
 echo -e "${COL_BLUE}=============${COL_RESET}"
