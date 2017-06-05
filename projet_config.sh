@@ -57,6 +57,19 @@ INSTALLDIR=${1:-$HOME}
 
 GIT_VERSION=$(git --version | awk '{print $3}')
 
+#if [[ $(git rev-parse --is-inside-work-tree) == true ]]; then
+    
+
+inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
+if [ "$inside_git_repo" ]; then
+  echo "inside git repo"
+else
+  echo "not in git repo"
+fi
+
+
+echo "Inside : " ${inside_git_repo}
+
 DEBUG echo "SOURCE : ${SOURCE}"
 DEBUG echo "SOURCEDIR : ${SOURCEDIR}"
 DEBUG echo "INSTALLDIR : ${INSTALLDIR}"
