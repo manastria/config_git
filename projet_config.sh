@@ -190,6 +190,7 @@ if [ "$config_alias" == "Y" ] || [ "$config_alias" == "y" ]; then
     git config --global alias.start '!git init && git commit --allow-empty -m "Initial commit"'
     git config --global alias.unstage 'reset HEAD --'
     git config --global alias.ls-ignored 'ls-files --exclude-standard --ignored --others'
+	git config --global alias.root 'rev-parse --show-toplevel'
 fi
 
 echo -en "\nDo you want config pager ? [N/y]"
