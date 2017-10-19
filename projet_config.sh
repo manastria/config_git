@@ -234,6 +234,15 @@ if [ "$config_nppp" == "Y" ] || [ "$config_nppp" == "y" ]; then
 fi
 
 
+
+echo -en "\nDo you want use branche facile ? [N/y]"
+read -n 1 config_branche_facile
+
+if [ "$config_branche_facile" == "Y" ] || [ "$config_branche_facile" == "y" ]; then
+	git config --global push.default current
+fi
+
+
 echo -en "\nDo you config mergetools ? [N/y]"
 read -n 1 config_mergetool
 
