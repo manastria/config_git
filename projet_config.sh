@@ -176,6 +176,7 @@ read -n 1 config_alias
 
 if [ "$config_alias" == "Y" ] || [ "$config_alias" == "y" ]; then
 	git config --global alias.auth 'shortlog -sne --all'
+	git config --global --replace-all alias.la '!git config -l | grep alias | cut -c 7-'
 	git config --global alias.a  'add'
 	git config --global alias.br 'branch'
 	git config --global alias.ci 'commit'
