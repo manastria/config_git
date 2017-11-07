@@ -207,9 +207,9 @@ read -n 1 config_hist
 if [ "$config_hist" == "Y" ] || [ "$config_hist" == "y" ]; then
 	if [ -v GIT_VER_260 ]
 	then
-		git config --global alias.hist "log --graph --decorate --format=format:'%C(red)%h%C(reset) | %C(green)%ad%C(reset) | %C(magenta)%d%C(reset) %C(reset)%s %C(blue)[%aN]%C(reset)' --date=format:'%Y-%m-%d %H:%M:%S'"
+		git config --global alias.hist "log --graph --use-mailmap --decorate --format=format:'%C(red)%h%C(reset) | %C(green)%ad%C(reset) | %C(magenta)%d%C(reset) %C(reset)%s %C(blue)[%aN]%C(reset)' --date=format:'%Y-%m-%d %H:%M:%S'"
 	else
-		git config --global alias.hist "log --graph --decorate --format=format:'%C(red)%h%C(reset) | %C(green)%ad%C(reset) | %C(magenta)%d%C(reset) %C(reset)%s %C(blue)[%aN]%C(reset)' --date=iso"
+		git config --global alias.hist "log --graph --use-mailmap --decorate --format=format:'%C(red)%h%C(reset) | %C(green)%ad%C(reset) | %C(magenta)%d%C(reset) %C(reset)%s %C(blue)[%aN]%C(reset)' --date=iso"
 	fi
 fi
 
