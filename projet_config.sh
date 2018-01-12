@@ -221,15 +221,20 @@ read -n 1 config_nppp
 
 if [ "$config_nppp" == "Y" ] || [ "$config_nppp" == "y" ]; then
 	if [ -e 'c:\Program Files (x86)\Notepad++\notepad++.exe' ]; then
-		echo "Editor : notepad++"
+		echo "Editor : notepad++ (32 bits)"
 		if  [ -z "$CYGWIN" ]; then
 			git config --global core.editor "'c:\Program Files (x86)\Notepad++\notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
 		else
 			git config --global core.editor "~/configunix_gitconfig/install/bin/npp.sh"
 		fi
 	else
-		echo "Editor : vim"
-		git config --global core.editor "\"$(which vim)\""
+		if [ -e 'c:\Program Files\Notepad++\notepad++.exe' ]; then
+			echo "Editor : notepad++ (64 bits)"
+			git config --global core.editor "'c:\Program Files\Notepad++\notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
+		else
+			echo "Editor : vim"
+			git config --global core.editor "\"$(which vim)\""
+		fi
 	fi
 fi
 
